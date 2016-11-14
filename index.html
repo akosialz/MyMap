@@ -98,6 +98,8 @@
 				if (response.result.values != null &&  response.result.values.length > 0)  {
 					fetchedStatistics = response.result.values.splice(0);
 				}
+				
+				storeContents();
             }, function(response) {
                 alert('Error: ' + response.result.error.message);
             });
@@ -355,15 +357,14 @@
 		
 		function callback(results, status) {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
+				checkAuth();
 				storeStatistics = [];
                 for (var i = 0; i < results.length; i++) {
                     createMarker(results[i]);
                 }
 				
-				if (authResultCopy) {
-					cleanStoreArray();
-					loadSheetsApi(1);
-				}
+				
+				cleanStoreArray();
             }
         }
 
@@ -468,7 +469,7 @@
 
 
 	</script>
-    <script src="https://apis.google.com/js/client.js?onload=checkAuth">
+    <script src="https://apis.google.com/js/client.js?">
     </script>
 </head>
 
